@@ -5,7 +5,7 @@ def push(item):
     stack.append(item)
 
     
-def peek():
+def top():
     if len(stack) != 0:
         return stack[-1]
 
