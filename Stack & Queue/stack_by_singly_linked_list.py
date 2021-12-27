@@ -19,7 +19,6 @@ def peek():
 def pop():
     global top
     global size
-    
     if size != 0:
         top_item = top.item
         top = top.next
