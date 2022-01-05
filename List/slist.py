@@ -23,6 +23,7 @@ class SList:
             self.head = self.Node(item, None)
         else:
             self.head = self.Node(item, self.head)
+        self.size += 1
             
             
     def insert_after(self, item, p):
@@ -60,7 +61,6 @@ class SList:
     
     def print_list(self):
         p = self.head
-        
         while p:
             if p.next != None:
                 print(p.item, " -> ", end="")
@@ -71,3 +71,12 @@ class SList:
             
 class EmptyError(Exception):
     pass
+
+
+if __name__ == "__main__":
+    s = SList()
+    s.insert_front("orange")
+    s.insert_front("apple")
+    s.insert_after("cherry", s.head.next)
+    s.insert_front("pear")
+    s.print_list()
