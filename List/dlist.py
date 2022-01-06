@@ -8,7 +8,7 @@ class DList:
         
     def __init__(self):
         self.head = self.Node(None, None, None)
-        self.tail - self.Node(None, self.head, None)
+        self.tail = self.Node(None, self.head, None)
         self.head.next = self.tail
         self.size = 0
         
@@ -23,7 +23,7 @@ class DList:
     
     def insert_before(self, p, item):
         t = p.prev
-        n = self.Node(self, t, p)
+        n = self.Node(item, t, p)
         p.prev = n
         t.next = n
         self.size += 1
@@ -31,7 +31,7 @@ class DList:
     
     def insert_after(self, p, item):
         t = p.next
-        n = self.Node(self, p, t)
+        n = self.Node(item, p, t)
         t.prev = n
         p.next = n
         self.size += 1
@@ -43,8 +43,16 @@ class DList:
         f.next = r
         r.prev = f
         self.size -= 1
-        
         return x.item    
+    
+    def search(self, target):
+        p = self.head
+        
+        for k in range(self.size):
+            if target == p.item:
+                return k
+            p = p.next
+        return None
     
     
     def print_list(self):
@@ -55,8 +63,19 @@ class DList:
             
             while p != self.tail:
                 if p.next != self.tail:
-                    print(p.item, " -> ", end ="")
+                    print(p.item, "-> ", end ="")
                 else:
                     print(p.item)
                 
-                p = p.item
+                p = p.next
+
+
+if __name__ == "__main__":
+    d = DList()
+    d.insert_after(d.head, "apple")
+    d.insert_before(d.tail, "orange")
+    d.insert_before(d.tail, "cherry")
+    d.insert_after(d.head.next, 'pear')
+    d.print_list()
+    print("pear는 %d번째" %d.search("pear"))
+    d.print_list()

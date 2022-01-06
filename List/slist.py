@@ -87,3 +87,4 @@ if __name__ == "__main__":
     s.delete_front()
     print("첫 번째 노드 삭제 후 : \t\t", end="")
     s.print_list()
+    
