@@ -80,7 +80,7 @@ if __name__ == "__main__":
     s.insert_after("cherry", s.head.next)
     s.insert_front("pear")
     s.print_list()
-    print("cherry는 %d번째" % s.search("cherry"))
+    print("cherry는 %d번째" %s.search("cherry"))
     s.delete_after(s.head)
     print("pear 다음 노드 삭제 후 : \t\t", end="")
     s.print_list()

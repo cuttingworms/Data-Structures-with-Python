@@ -78,4 +78,5 @@ if __name__ == "__main__":
     d.insert_after(d.head.next, 'pear')
     d.print_list()
     print("pear는 %d번째" %d.search("pear"))
+    d.delete(d.tail.prev)
     d.print_list()
