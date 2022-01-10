@@ -72,3 +72,16 @@ class CList:
 
 class EmptyError(Exception):
     pass
+
+
+if __name__ == "__main__":
+    c = CList()
+    c.insert("pear")
+    c.insert("cherry")
+    c.insert("orange")
+    c.insert("apple")
+    c.print_list()
+    c.delete()
+    c.print_list()
+    c.delete()
+    c.print_list()
