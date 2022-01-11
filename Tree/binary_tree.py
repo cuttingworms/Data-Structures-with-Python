@@ -47,7 +47,7 @@ class BinaryTree:
             if t.left != None:
                 q.append(t.left)
             if t.right != None:
-                q.qppend(t.right)
+                q.append(t.right)
                 
                 
     def height(self, root):
@@ -55,3 +55,35 @@ class BinaryTree:
             return 0
         return max(self.height(root.left), self.height(root.right)) + 1
         
+        
+if __name__ == "__main__":
+    bt = BinaryTree()
+    
+    n1 = Node(100)
+    n2 = Node(200)
+    n3 = Node(300)
+    n4 = Node(400)
+    n5 = Node(500)
+    n6 = Node(600)
+    n7 = Node(700)
+    n8 = Node(800)
+    
+    n1.left = n2
+    n1.right = n3
+    n2.left = n4
+    n2.right = n5
+    n3.left = n6
+    n3.right = n7
+    n4.left = n8
+    bt.root = n1
+    
+    print("트리 높이 : ", bt.height(bt.root))
+    print("preorder traversal : ", end="")
+    bt.preorder(bt.root)
+    print("\ninorder traversal : ", end="")
+    bt.inorder(bt.root)
+    print("\npostorder traversal : ", end="")
+    bt.postorder(bt.root)
+    print("\nlevelorder traversal : ", end="")
+    bt.levelorder(bt.root)
+    
