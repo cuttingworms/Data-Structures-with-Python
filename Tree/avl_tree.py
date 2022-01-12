@@ -1,15 +1,56 @@
 class Node:
-    def __init__(self, key, value, left = None, right = None):
+    def __init__(self, key, value, height, left = None, right = None):
         self.key = key
         self.value = value
+        self.height = height
         self.left = left
         self.right = right
         
 
-class BST:
+class AVL:
     def __init__(self):
         self.root = None
         
+        
+    def height(self, n):
+        if n == None:
+            return 0
+        return n.height 
+    
+    
+    def rotate_right(self, n):
+        x = n.left
+        n.left = x.right
+        x.right = n
+        n.height = max(self.height(n.left), self.height(n.right)) + 1   
+        x.height = max(self.height(x.left), self.height(x.right)) + 1
+        return x
+    
+    
+    def rotate_left(self, n):
+        x = n.right
+        n.right = x.left
+        x.left = n
+        n.height = max(self.height(n.left), self.height(n.right)) + 1   
+        x.height = max(self.height(x.left), self.height(x.right)) + 1
+        return x
+    
+    
+    def balance(self, n):
+        if self.bf(n) > 1:
+            if self.bf(n.left) < 0:
+                n.left = self.rotate_left(n.left)   # LR 회전
+            n = self.rotate_right(n)    # LL 회전
+        elif self.bf(n) < -1:
+            if self.bf(n.right) > 0:
+                n.right = self.rotate_right(n.right)    # RL 회전    
+            n = self.rotate_left(n)     # RR 회전
+        return n
+    
+    
+    def bf(self, n):
+        return self.height(n.left) - self.height(n.right)
+    
         
     def search(self, k):
         return self.search_item(self.root, k)
@@ -32,14 +73,16 @@ class BST:
         
     def insert_item(self, n, k, v):
         if n == None:
-            return Node(k, v)
+            return Node(k, v, 1)
         if n.key > k:
             n.left = self.insert_item(n.left, k, v)
         elif n.key < k:
             n.right = self.insert_item(n.right, k, v)
         else:
             n.value = v
-        return n
+            return n
+        n.height = max(self.height(n.left), self.height(n.right)) + 1
+        return self.balance(n)
     
     
     def find_min(self):
@@ -87,7 +130,9 @@ class BST:
             n = self.find_minimum(target.right)
             n.right = self.delete_minimum(target.right)
             n.left = target.left
-        return n
+            return n
+        n.height = max(self.height(n.left), self.height(n.right)) + 1
+        return self.balance(n)
     
     
     def preorder(self, n):
@@ -109,27 +154,27 @@ class BST:
     
     
 if __name__ == "__main__":
-    bst = BST()
-    bst.insert(500, "apple")
-    bst.insert(600, "banana")
-    bst.insert(200, "melon")
-    bst.insert(100, "orange")
-    bst.insert(400, "lime")
-    bst.insert(250, "kiwi")
-    bst.insert(150, "grape")
-    bst.insert(800, "peach")
-    bst.insert(700, "cherry")
-    bst.insert(50, "pear")
-    bst.insert(350, "lemon")
-    bst.insert(10, "plum")
+    avl = AVL()
+    avl.insert(75, "apple")
+    avl.insert(80, "grape")
+    avl.insert(85, "lime")
+    avl.insert(20, "mango")
+    avl.insert(10, "strawberry")
+    avl.insert(50, "banana")
+    avl.insert(30, "cherry")
+    avl.insert(40, "watermelon")
+    avl.insert(70, "melon")
+    avl.insert(90, "plum")
     print("preorder traversal : ", end="")
-    bst.preorder(bst.root)
+    avl.preorder(avl.root)
     print("\ninorder traversal : ", end="")
-    bst.inorder(bst.root)
-    print("\n250 : " + bst.search(250))
-    bst.delete(200)
-    print("200 삭제 후 : ")
+    avl.inorder(avl.root)
+    print("\n75와 85 삭제")
+    avl.delete(75)
+    avl.delete(85)
     print("preorder traversal : ", end="")
-    bst.preorder(bst.root)
+    avl.preorder(avl.root)
     print("\ninorder traversal : ", end="")
-    bst.inorder(bst.root)
+    avl.inorder(avl.root)
+    
+    
