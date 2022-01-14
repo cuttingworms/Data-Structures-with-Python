@@ -10,5 +10,3 @@ result = []
 while a:
     result.append(heapq.heappop(a))
 print(result)
-
-
